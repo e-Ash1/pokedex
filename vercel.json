@@ -1,7 +1,7 @@
 {
     "version": 2,
     "builds": [
-      { "src": "client/**/*", "use": "@vercel/vite" },
+      { "src": "client/**/*", "use": "@vercel/next" },
       { "src": "server/**/*", "use": "@vercel/node" }
     ],
     "routes": [
