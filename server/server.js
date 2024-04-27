@@ -1,7 +1,27 @@
 // /api/pokedex.js
 const axios = require('axios');
+const cors = require('cors');
+
+const corsHandler = cors({
+    origin: true,
+    credentials: true
+});
+
+function runMiddleware(req, res, fn) {
+    return new Promise((resolve, reject) => {
+        fn(req, res, (result) => {
+            if (result instanceof Error) {
+                return reject(result);
+            }
+            return resolve(result);
+        });
+    });
+}
 
 module.exports = async (req, res) => {
+    
+    runMiddleware(req, res, corsHandler);
+    
     const pokemon = ['charmander', 'squirtle', 'metapod', 'butterfree', 'pikachu', 'jigglypuff', 'gengar', 'eevee'];
     const requests = pokemon.map(poke => axios.get(`https://pokeapi.co/api/v2/pokemon/${poke}`));
     try {
