@@ -1,24 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios'; 
+import React from 'react';
+import useDataFetch from '../hooks/useDataFetch';
 
 function PokeDex() {
-    const [pokedex, setPokedex] = useState([]);
-
-    useEffect(() => {
-        axios.get('/api/pokedex')
-            .then((response) => setPokedex(response.data))
-            .catch((error) => console.error('Error fetching data:', error));
-    }, []);
+    const { data: pokedex, loading, error } = useDataFetch(`/api/pokedex`);
 
     function capitalize(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     };
 
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error.message}</div>;
+
     return (
         <div>
             <h1>Pokédex</h1>
             <div className="cards-container">
-                {pokedex.map((pokemon) => (
+                {pokedex && pokedex.map((pokemon) => (
                     <div key={pokemon.id} className="card">
                         <div className="card-content">
                             <h2 className="card-title">{capitalize(pokemon.name)}</h2>
@@ -31,6 +28,6 @@ function PokeDex() {
             </div>
         </div>
     );
-}
+};
 
 export default PokeDex;
