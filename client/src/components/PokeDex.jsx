@@ -6,7 +6,7 @@ function PokeDex() {
 
     useEffect(() => {
         axios.get('/api/pokedex')
-            .then((response) => setPokedex(response.data)) // Accessing data directly from response object
+            .then((response) => setPokedex(response.data))
             .catch((error) => console.error('Error fetching data:', error));
     }, []);
 
