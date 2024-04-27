@@ -4,7 +4,7 @@ function PokeDex() {
     const [pokedex, setPokedex] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3001/api/pokedex')
+        fetch('https://localhost:3001/api/pokedex')
             .then((response) => response.json())
             .then((data) => setPokedex(data))
             .catch((error) => console.error('Error fetching data:', error));
