@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios'; 
 
 function PokeDex() {
     const [pokedex, setPokedex] = useState([]);
 
     useEffect(() => {
-        fetch('https://localhost:3001/api/pokedex')
-            .then((response) => response.json())
-            .then((data) => setPokedex(data))
+        axios.get('/api/pokedex')
+            .then((response) => setPokedex(response.data)) // Accessing data directly from response object
             .catch((error) => console.error('Error fetching data:', error));
     }, []);
 
@@ -16,22 +16,21 @@ function PokeDex() {
 
     return (
         <div>
-        <h1>Pokédex</h1>
-        <div className="cards-container">
-            {pokedex.map((pokemon) => (
-                <div key={pokemon.id} className="card">
-                    <div className="card-content">
-                        <h2 className="card-title">{capitalize(pokemon.name)}</h2>
-                        <img className="card-image" src={pokemon.img} alt={pokemon.name} />
-                        <p className="card-info">Type: {pokemon.type}</p>
-                        <p className="card-info">EXP: {pokemon.exp}</p>
+            <h1>Pokédex</h1>
+            <div className="cards-container">
+                {pokedex.map((pokemon) => (
+                    <div key={pokemon.id} className="card">
+                        <div className="card-content">
+                            <h2 className="card-title">{capitalize(pokemon.name)}</h2>
+                            <img className="card-image" src={pokemon.img} alt={pokemon.name} />
+                            <p className="card-info">Type: {pokemon.type}</p>
+                            <p className="card-info">EXP: {pokemon.exp}</p>
+                        </div>
                     </div>
-                </div>
-        ))}
+                ))}
+            </div>
         </div>
-    </div>
-
     );
-};
+}
 
 export default PokeDex;
