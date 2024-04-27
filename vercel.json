@@ -1,0 +1,12 @@
+{
+    "version": 2,
+    "builds": [
+      { "src": "client/**/*", "use": "@vercel/vite" },
+      { "src": "server/**/*", "use": "@vercel/express" }
+    ],
+    "routes": [
+      { "src": "/api/(.*)", "dest": "server/server.js/$1" },
+      { "src": "/(.*)", "dest": "client/$1" }
+    ]
+  }
+  
