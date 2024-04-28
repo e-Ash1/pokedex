@@ -1,20 +1,10 @@
 const axios = require('axios');
 
 async function lambdaHandler(event, context) {
-    // Retrieve the origin from the request headers
-    const origin = event.headers.origin;
-
-    // Define allowed origins
-    const allowedOrigins = [
-        'https://pokedex-five-roan.vercel.app',
-        'https://www.pokedex-five-roan.vercel.app',
-        'https://pokedex-ng8k9wa47-emads-projects-35759fe6.vercel.app'
-    ];
-
     // Setup CORS headers
     const headers = {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': allowedOrigins.includes(origin) ? origin : allowedOrigins[0],
+        'Access-Control-Allow-Origin': !process.env.PROD_URL ? '*' : process.env.PROD_URL,
         'Access-Control-Allow-Methods': 'GET, OPTIONS',
         'Access-Control-Allow-Credentials': true,
         'Access-Control-Allow-Headers': 'Content-Type'
