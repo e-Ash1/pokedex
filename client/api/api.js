@@ -4,8 +4,7 @@ async function lambdaHandler(event, context) {
     // Allowed origins can include specific URLs or patterns
     const allowedOrigins = [
         'https://pokedex-five-roan.vercel.app',
-        /\.pokedex-five-roan\.vercel\.app$/,   // Regex to cover all subdomains dynamically
-        'https://pokedex-ng8k9wa47-emads-projects-35759fe6.vercel.app' // Include other known dynamic URLs if necessary
+        /\.pokedex-five-roan\.vercel\.app$/, 
     ];
 
     // Determine if the request origin is in the allowed list
